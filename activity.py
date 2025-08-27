@@ -17,23 +17,22 @@
 """HelloWorld Activity: A case study for developing an activity."""
 
 import gi
-gi.require_version('Gtk', '3.0')
+gi.require_version('Gtk', '4.0')
 from gi.repository import Gtk
 
 from gettext import gettext as _
 
-from sugar3.activity import activity
-from sugar3.graphics.toolbarbox import ToolbarBox
-from sugar3.activity.widgets import StopButton
-from sugar3.activity.widgets import ActivityToolbarButton
+from sugar.activity.activity import Activity
+from sugar.graphics.toolbarbox import ToolbarBox
+from sugar.activity.widgets import StopButton, ActivityToolbarButton
 
 
-class HelloWorldActivity(activity.Activity):
+class HelloWorldActivity(Activity):
     """HelloWorldActivity class as specified in activity.info"""
 
-    def __init__(self, handle):
+    def __init__(self, handle, application=None):
         """Set up the HelloWorld activity."""
-        activity.Activity.__init__(self, handle)
+        Activity.__init__(self, handle, application=application)
 
         # we do not have collaboration features
         # make the share option insensitive
@@ -43,23 +42,20 @@ class HelloWorldActivity(activity.Activity):
         toolbar_box = ToolbarBox()
 
         activity_button = ActivityToolbarButton(self)
-        toolbar_box.toolbar.insert(activity_button, 0)
-        activity_button.show()
+        # GTK4: use append on the toolbar container
+        toolbar_box.toolbar.append(activity_button)
 
-        separator = Gtk.SeparatorToolItem()
-        separator.props.draw = False
-        separator.set_expand(True)
-        toolbar_box.toolbar.insert(separator, -1)
-        separator.show()
+        # spacer to push stop button to the right
+        separator = Gtk.Box()
+        separator.set_hexpand(True)
+        toolbar_box.toolbar.append(separator)
 
         stop_button = StopButton(self)
-        toolbar_box.toolbar.insert(stop_button, -1)
-        stop_button.show()
+        toolbar_box.toolbar.append(stop_button)
 
         self.set_toolbar_box(toolbar_box)
-        toolbar_box.show()
 
         # label with the text, make the string translatable
-        label = Gtk.Label(_("Hello World!"))
+        label = Gtk.Label(label=_("Hello World!"))
+        # GTK4: set canvas directly with widgets
         self.set_canvas(label)
-        label.show()
