@@ -25,7 +25,7 @@ os.environ.setdefault("SUGAR_BUNDLE_ID", "org.sugarlabs.HelloWorld")
 os.environ.setdefault("SUGAR_BUNDLE_NAME", "HelloWorld")
 os.environ.setdefault("SUGAR_BUNDLE_PATH", os.getcwd())
 
-from sugar.activity.activityhandle import ActivityHandle
+from sugar4.activity.activityhandle import ActivityHandle
 
 import activity as hello_activity
 

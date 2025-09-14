@@ -17,14 +17,15 @@
 """HelloWorld Activity: A case study for developing an activity."""
 
 import gi
-gi.require_version('Gtk', '4.0')
+
+gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk
 
 from gettext import gettext as _
 
-from sugar.activity.activity import Activity
-from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.activity.widgets import StopButton, ActivityToolbarButton
+from sugar4.activity.activity import Activity
+from sugar4.graphics.toolbarbox import ToolbarBox
+from sugar4.activity.widgets import StopButton, ActivityToolbarButton
 
 
 class HelloWorldActivity(Activity):
